@@ -71,7 +71,7 @@ export default function ThreeDotMenu({
               Platform Navigation & Tools
             </h3>
             <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
-              SIH26101 Enterprise Quick Access
+              SkillMatrix AI Enterprise Quick Access
             </p>
           </div>
           <button
@@ -224,7 +224,7 @@ export default function ThreeDotMenu({
             color: 'var(--text-secondary)',
             lineHeight: 1.5
           }}>
-            <strong style={{ color: '#60a5fa' }}>SIH26101 Specification Guarantee:</strong> All attempts, radar competency updates, and RAG document queries are persisted on the server SQLite database and survive page refreshes.
+            <strong style={{ color: '#60a5fa' }}>SkillMatrix AI Architecture Guarantee:</strong> All attempts, radar competency updates, and RAG document queries are persisted on the server SQLite database and survive page refreshes.
           </div>
         </div>
 
@@ -238,8 +238,8 @@ export default function ThreeDotMenu({
           alignItems: 'center',
           justifyContent: 'space-between'
         }}>
-          <span>SIH26101 v1.0.0</span>
-          <span>Digital India Platform</span>
+          <span>SkillMatrix AI v1.0.0</span>
+          <span>Enterprise Talent Platform</span>
         </div>
       </div>
     </div>

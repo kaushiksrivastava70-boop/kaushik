@@ -17,7 +17,7 @@ from database import init_db, get_db_connection
 init_db()
 
 app = FastAPI(
-    title="SIH26101 AI-Driven Competency Intelligence API",
+    title="SkillMatrix AI - Competency Intelligence & Adaptive Learning API",
     description="Python FastAPI backend powering adaptive learning, Competency Digital Twins, RAG, and PDF quiz generation.",
     version="1.0.0"
 )
@@ -36,7 +36,7 @@ def health_check():
     return {
         "status": "online",
         "backend": "Python FastAPI",
-        "platform": "SIH26101 AI-Driven Competency Intelligence & Adaptive Learning Platform",
+        "platform": "SkillMatrix AI - Competency Intelligence & Adaptive Learning Platform",
         "timestamp": datetime.now().isoformat()
     }
 
@@ -466,6 +466,21 @@ def list_training_modules():
     conn.close()
     return [dict(m) for m in modules]
 
+def safe_json_parse(text, default=None):
+    if default is None:
+        default = []
+    if not text:
+        return default
+    try:
+        return json.loads(text)
+    except Exception:
+        try:
+            # Fallback: replace any unescaped inner quotes or parse line by line
+            import ast
+            return ast.literal_eval(text)
+        except Exception:
+            return default
+
 @app.get("/api/training/{module_id}")
 def get_training_module(module_id: str):
     conn = get_db_connection()
@@ -474,8 +489,8 @@ def get_training_module(module_id: str):
     if not m:
         raise HTTPException(status_code=404, detail="Module not found")
     md = dict(m)
-    md['test_cases'] = json.loads(md['test_cases'] or '[]')
-    md['hints'] = json.loads(md['hints'] or '[]')
+    md['test_cases'] = safe_json_parse(md.get('test_cases'))
+    md['hints'] = safe_json_parse(md.get('hints'))
     return md
 
 @app.post("/api/training/start")
@@ -887,5 +902,5 @@ if STATIC_DIR.exists():
         return FileResponse(str(STATIC_DIR / "index.html"))
 
 if __name__ == "__main__":
-    print("[Python Backend] Starting SIH26101 FastAPI server on http://localhost:8000 ...")
+    print("[Python Backend] Starting SkillMatrix AI FastAPI server on http://localhost:8000 ...")
     uvicorn.run(app, host="0.0.0.0", port=8000)

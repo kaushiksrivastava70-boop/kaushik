@@ -379,7 +379,7 @@ def seed_db(conn):
      'Implement a function process_records(df) that drops duplicates based on \"id\" and filters records where \"score\" >= 50.',
      'def process_records(df):\n    # Write data processing pipeline\n    clean_df = df.drop_duplicates(subset=[\"id\"])\n    result = clean_df[clean_df[\"score\"] >= 50]\n    return result',
      '["drop_duplicates", "score", "50"]',
-     '["Call df.drop_duplicates(subset=[\"id\"])", "Apply boolean filter [df[\"score\"] >= 50]", "Return the filtered DataFrame"]',
+     '["Call df.drop_duplicates(subset=[\'id\'])", "Apply boolean filter clean_df[clean_df[\'score\'] >= 50]", "Return the filtered DataFrame result"]',
      35)
     """)
 

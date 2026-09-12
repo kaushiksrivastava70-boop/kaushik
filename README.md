@@ -1,4 +1,4 @@
-# SIH26101 - AI-Driven Competency Intelligence & Adaptive Learning Platform
+# SkillMatrix AI - Competency Intelligence & Adaptive Learning Platform
 
 An enterprise-grade government talent assessment & learning acceleration platform designed for public sector data analysts, statisticians, and engineers.
 
