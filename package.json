@@ -1,0 +1,19 @@
+{
+  "name": "sih26101-competency-platform",
+  "version": "1.0.0",
+  "description": "AI-Driven Competency Intelligence & Adaptive Learning Platform",
+  "private": true,
+  "scripts": {
+    "server": "node server/index.js",
+    "client": "cd client && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "install-all": "npm install && cd client && npm install"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "sql.js": "^1.11.0",
+    "uuid": "^11.1.0"
+  }
+}
