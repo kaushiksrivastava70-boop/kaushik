@@ -2,6 +2,8 @@
 
 An enterprise-grade government talent assessment & learning acceleration platform designed for public sector data analysts, statisticians, and engineers.
 
+🌐 **Live Deployed URL**: [https://skill-matrix-ai.vercel.app](https://skill-matrix-ai.vercel.app)
+
 ## 🚀 Key Features
 
 1. **Competency Digital Twin**
