@@ -2,9 +2,22 @@ import sqlite3
 import os
 import json
 import uuid
+import shutil
+import tempfile
 from datetime import datetime
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "..", "sih_database_py.sqlite")
+ORIGINAL_DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "sih_database_py.sqlite"))
+
+if os.environ.get("VERCEL") or not os.access(os.path.dirname(ORIGINAL_DB_PATH) or ".", os.W_OK):
+    temp_dir = "/tmp" if os.path.exists("/tmp") else tempfile.gettempdir()
+    DB_PATH = os.path.join(temp_dir, "sih_database_py.sqlite")
+    if not os.path.exists(DB_PATH) and os.path.exists(ORIGINAL_DB_PATH):
+        try:
+            shutil.copyfile(ORIGINAL_DB_PATH, DB_PATH)
+        except Exception as e:
+            print("[Database] Copy to temp dir note:", e)
+else:
+    DB_PATH = ORIGINAL_DB_PATH
 
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH)

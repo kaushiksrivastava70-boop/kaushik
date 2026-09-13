@@ -4,6 +4,7 @@
   "description": "AI-Driven Competency Intelligence & Adaptive Learning Platform",
   "private": true,
   "scripts": {
+    "build": "cd client && npm install && npm run build",
     "server": "node server/index.js",
     "client": "cd client && npm run dev",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
