@@ -120,18 +120,11 @@ export default function TrainingMode({ currentUser, onNavigate }) {
   ];
 
   return (
-    <div style={{ maxWidth: 1400, margin: '0 auto', padding: '32px 24px', display: 'flex', flexDirection: 'column', gap: 32 }}>
+    <div className="container-responsive" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
       {/* Banner */}
-      <div style={{
+      <div className="responsive-hero" style={{
         background: 'linear-gradient(135deg, rgba(234, 88, 12, 0.15), rgba(37, 99, 235, 0.15))',
-        border: '1px solid rgba(234, 88, 12, 0.3)',
-        borderRadius: 'var(--radius-lg)',
-        padding: '28px 32px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: 20
+        border: '1px solid rgba(234, 88, 12, 0.3)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <div style={{
@@ -162,7 +155,7 @@ export default function TrainingMode({ currentUser, onNavigate }) {
         </div>
 
         {/* Module Switcher Dropdown */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div className="responsive-hero-actions" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>Training Track:</span>
           <select
             value={activeModule?.id || ''}
@@ -264,7 +257,7 @@ export default function TrainingMode({ currentUser, onNavigate }) {
       )}
 
       {/* Main Workspace based on Current Step */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 24 }}>
+      <div className="responsive-grid-training">
         {/* Left Column: Lesson / Example / Prompt */}
         <div className="card" style={{ padding: 28, display: 'flex', flexDirection: 'column', gap: 20 }}>
           {currentStep === 1 && (

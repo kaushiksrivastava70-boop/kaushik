@@ -85,18 +85,11 @@ export default function CompetencyTwin({ currentUser, onNavigate }) {
     .join(' ');
 
   return (
-    <div style={{ maxWidth: 1400, margin: '0 auto', padding: '32px 24px', display: 'flex', flexDirection: 'column', gap: 32 }}>
+    <div className="container-responsive" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
       {/* Header Banner */}
-      <div style={{
+      <div className="responsive-hero" style={{
         background: 'linear-gradient(135deg, rgba(13, 148, 136, 0.15), rgba(37, 99, 235, 0.15))',
-        border: '1px solid rgba(13, 148, 136, 0.3)',
-        borderRadius: 'var(--radius-lg)',
-        padding: '28px 32px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: 20
+        border: '1px solid rgba(13, 148, 136, 0.3)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <div style={{
@@ -124,7 +117,7 @@ export default function CompetencyTwin({ currentUser, onNavigate }) {
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div className="responsive-hero-actions" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <button
             onClick={fetchCompetencyData}
             style={{
@@ -140,8 +133,7 @@ export default function CompetencyTwin({ currentUser, onNavigate }) {
               color: 'var(--text-primary)'
             }}
           >
-            <RefreshCw size={14} className={loading ? 'pulsing-dot' : ''} />
-            Refresh State
+            <RefreshCw size={14} className={loading ? 'spinning' : ''} /> Recalibrate Twin
           </button>
           <button
             onClick={() => onNavigate('assessment')}
@@ -154,7 +146,7 @@ export default function CompetencyTwin({ currentUser, onNavigate }) {
       </div>
 
       {/* Main Grid: Radar Chart + Skill Diagnostics */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 24 }}>
+      <div className="responsive-grid-split">
         {/* Left Card: Interactive Radar Visualization */}
         <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
           <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
@@ -304,7 +296,7 @@ export default function CompetencyTwin({ currentUser, onNavigate }) {
         {/* Right Column: Categorized Diagnostics & Historical Progression */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {/* Summary KPIs */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 14 }}>
             <div className="card" style={{ padding: 18 }}>
               <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Overall Competency</div>
               <div style={{ fontSize: 26, fontWeight: 800, color: '#2dd4bf', marginTop: 4 }}>

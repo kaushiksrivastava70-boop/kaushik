@@ -88,18 +88,11 @@ export default function RagTutor({ currentUser }) {
   };
 
   return (
-    <div style={{ maxWidth: 1400, margin: '0 auto', padding: '32px 24px', display: 'flex', flexDirection: 'column', gap: 32 }}>
+    <div className="container-responsive" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
       {/* Banner */}
-      <div style={{
+      <div className="responsive-hero" style={{
         background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(37, 99, 235, 0.15))',
-        border: '1px solid rgba(139, 92, 246, 0.3)',
-        borderRadius: 'var(--radius-lg)',
-        padding: '28px 32px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: 20
+        border: '1px solid rgba(139, 92, 246, 0.3)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <div style={{
@@ -128,7 +121,7 @@ export default function RagTutor({ currentUser }) {
         </div>
 
         {/* Document Selector */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div className="responsive-hero-actions" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>Target Corpus:</span>
           <select
             value={selectedDocId}
@@ -153,7 +146,7 @@ export default function RagTutor({ currentUser }) {
       </div>
 
       {/* Main Grid: Query & Citations (Left) + Document Inspector (Right) */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 24 }}>
+      <div className="responsive-grid-wide">
         {/* Left Column: Q&A Query Console */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {/* Query Input Box */}

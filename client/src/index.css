@@ -242,3 +242,207 @@ a {
   border-radius: 50%;
   animation: pulse-glow 2s infinite ease-in-out;
 }
+
+/* ==========================================================
+   MOBILE & RESPONSIVE DESIGN SYSTEM
+   Adapts seamlessly to any device width (320px to 4K)
+   ========================================================== */
+
+/* Main Containers */
+.container-responsive {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .container-responsive {
+    padding: 20px 16px !important;
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .container-responsive {
+    padding: 14px 12px !important;
+    gap: 16px !important;
+  }
+}
+
+/* Header Responsive Layout */
+.app-header {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.header-container {
+  max-width: 1650px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  gap: 16px;
+}
+
+.header-top-row {
+  display: contents;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 4px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+.header-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 992px) {
+  .app-header {
+    padding: 8px 12px 6px;
+  }
+  .header-container {
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .header-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .header-nav {
+    width: 100%;
+    padding-bottom: 4px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 8px;
+  }
+  .header-subtitle {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-brand-title {
+    font-size: 15px !important;
+  }
+  .header-tools {
+    gap: 6px;
+  }
+  .header-hide-mobile {
+    display: none !important;
+  }
+}
+
+/* Responsive Grids */
+.responsive-grid-split {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+}
+
+.responsive-grid-wide {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+}
+
+.responsive-grid-training {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 24px;
+}
+
+.responsive-grid-equal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 960px) {
+  .responsive-grid-split,
+  .responsive-grid-wide,
+  .responsive-grid-training,
+  .responsive-grid-equal {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+/* Hero Responsive Banners */
+.responsive-hero {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(139, 92, 246, 0.18));
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .responsive-hero {
+    padding: 20px 16px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+  .responsive-hero h1 {
+    font-size: 20px !important;
+  }
+  .responsive-hero-actions {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .responsive-hero-actions button {
+    flex: 1 1 auto !important;
+    justify-content: center !important;
+    font-size: 12px !important;
+    padding: 8px 12px !important;
+  }
+}
+
+/* Responsive Cards & Dialogs */
+@media (max-width: 640px) {
+  .card {
+    padding: 16px !important;
+  }
+  .card h3, .card h4 {
+    font-size: 15px !important;
+  }
+}

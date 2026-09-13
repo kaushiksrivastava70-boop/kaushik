@@ -49,19 +49,9 @@ export default function Dashboard({ currentUser, onNavigate, onOpenHistory, curr
   const topGap = summary?.criticalGaps?.[0] || { skill: 'Data Quality & Governance', score: 38 };
 
   return (
-    <div style={{ maxWidth: 1400, margin: '0 auto', padding: '32px 24px', display: 'flex', flexDirection: 'column', gap: 32 }}>
+    <div className="container-responsive" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
       {/* Welcome Hero Banner */}
-      <div style={{
-        background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(139, 92, 246, 0.18))',
-        border: '1px solid rgba(59, 130, 246, 0.3)',
-        borderRadius: 'var(--radius-lg)',
-        padding: '32px 36px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: 24
-      }}>
+      <div className="responsive-hero">
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <span className="badge badge-blue">
@@ -79,7 +69,7 @@ export default function Dashboard({ currentUser, onNavigate, onOpenHistory, curr
           </p>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div className="responsive-hero-actions" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <button
             onClick={() => onNavigate('assessment')}
             className="btn-primary"
@@ -105,7 +95,7 @@ export default function Dashboard({ currentUser, onNavigate, onOpenHistory, curr
       </div>
 
       {/* Top Telemetry KPI Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 20 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 20 }}>
         {/* Card 1: Overall Competency */}
         <div className="card" style={{ padding: 22 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -158,21 +148,21 @@ export default function Dashboard({ currentUser, onNavigate, onOpenHistory, curr
         <div className="card" style={{ padding: 22 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-              {t.learningVelocity}
+              {t.activeStreak}
             </span>
-            <Flame size={16} color="#f59e0b" />
+            <Flame size={16} color="#ea580c" />
           </div>
-          <div style={{ fontSize: 32, fontWeight: 800, color: '#f59e0b', marginTop: 8 }}>
-            +17 pts
+          <div style={{ fontSize: 32, fontWeight: 800, color: '#ea580c', marginTop: 8 }}>
+            4 Days
           </div>
           <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 4 }}>
-            Since baseline milestone
+            +18% Competency Acceleration
           </div>
         </div>
       </div>
 
-      {/* Main Grid: Competency Snapshot + AI Recommended Next Action */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 24 }}>
+      {/* Main Grid: Competency Digital Twin & AI Recommended Action */}
+      <div className="responsive-grid-split">
         {/* Left Column: Competency Twin Preview */}
         <div className="card" style={{ padding: 28, display: 'flex', flexDirection: 'column', gap: 18 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

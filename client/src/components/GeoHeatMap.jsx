@@ -111,18 +111,11 @@ export default function GeoHeatMap() {
   const activeState = selectedState || stateRegions[0] || defaultRegions[0];
 
   return (
-    <div style={{ maxWidth: 1400, margin: '0 auto', padding: '32px 24px', display: 'flex', flexDirection: 'column', gap: 32 }}>
+    <div className="container-responsive" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
       {/* Banner */}
-      <div style={{
+      <div className="responsive-hero" style={{
         background: 'linear-gradient(135deg, rgba(13, 148, 136, 0.15), rgba(37, 99, 235, 0.15))',
-        border: '1px solid rgba(13, 148, 136, 0.3)',
-        borderRadius: 'var(--radius-lg)',
-        padding: '28px 32px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: 20
+        border: '1px solid rgba(13, 148, 136, 0.3)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <div style={{
@@ -150,52 +143,54 @@ export default function GeoHeatMap() {
           </div>
         </div>
 
-        {/* View Mode Toggle */}
-        <div style={{ display: 'flex', gap: 8 }}>
+        {/* View Toggle */}
+        <div className="responsive-hero-actions" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <button
             onClick={() => setViewMode('map')}
             style={{
-              padding: '8px 14px',
+              padding: '8px 16px',
               borderRadius: 'var(--radius-md)',
               fontSize: 12,
               fontWeight: 600,
-              background: viewMode === 'map' ? 'var(--brand-blue)' : 'var(--bg-surface-elevated)',
-              color: viewMode === 'map' ? '#fff' : 'var(--text-secondary)',
-              border: '1px solid var(--border-subtle)'
+              background: viewMode === 'map' ? '#0d9488' : 'var(--bg-surface-elevated)',
+              color: '#fff',
+              border: viewMode === 'map' ? '1px solid #14b8a6' : '1px solid var(--border-subtle)',
+              cursor: 'pointer'
             }}
           >
-            🗺️ SVG Regional Map
+            India SVG Map View
           </button>
           <button
-            onClick={() => setViewMode('quadrant')}
+            onClick={() => setViewMode('quadrants')}
             style={{
-              padding: '8px 14px',
+              padding: '8px 16px',
               borderRadius: 'var(--radius-md)',
               fontSize: 12,
               fontWeight: 600,
-              background: viewMode === 'quadrant' ? 'var(--brand-blue)' : 'var(--bg-surface-elevated)',
-              color: viewMode === 'quadrant' ? '#fff' : 'var(--text-secondary)',
-              border: '1px solid var(--border-subtle)'
+              background: viewMode === 'quadrants' ? '#0d9488' : 'var(--bg-surface-elevated)',
+              color: '#fff',
+              border: viewMode === 'quadrants' ? '1px solid #14b8a6' : '1px solid var(--border-subtle)',
+              cursor: 'pointer'
             }}
           >
-            📊 Quadrant Analysis
+            4-Quadrant Strategic Matrix
           </button>
         </div>
       </div>
 
-      {/* Verification Notice */}
+      {/* Info Pill */}
       <div style={{
         padding: '12px 18px',
         borderRadius: 'var(--radius-md)',
-        background: 'rgba(59, 130, 246, 0.08)',
-        border: '1px solid rgba(59, 130, 246, 0.2)',
+        background: 'rgba(13, 148, 136, 0.08)',
+        border: '1px solid rgba(13, 148, 136, 0.2)',
         fontSize: 12,
-        color: 'var(--text-secondary)',
+        color: '#2dd4bf',
         display: 'flex',
         alignItems: 'center',
         gap: 10
       }}>
-        <Info size={16} color="#60a5fa" />
+        <Globe size={16} color="#2dd4bf" />
         <span>
           <strong>Aggregated Regional Data (Demo/Sample Verification Layer):</strong> Synchronized with national public sector training records. Hover over any state node to inspect regional cohorts.
         </span>
@@ -203,7 +198,7 @@ export default function GeoHeatMap() {
 
       {/* Main Map or Quadrant View */}
       {viewMode === 'map' ? (
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 24 }}>
+        <div className="responsive-grid-wide" style={{ gap: 24 }}>
           {/* SVG Map Canvas */}
           <div className="card" style={{ padding: 28, display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
             <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
