@@ -886,20 +886,33 @@ from fastapi.responses import FileResponse
 from pathlib import Path
 
 STATIC_DIR = Path(__file__).resolve().parent.parent / "client" / "dist"
+if not STATIC_DIR.exists():
+    STATIC_DIR = Path(os.getcwd()) / "client" / "dist"
 
 if STATIC_DIR.exists():
     # Serve static assets (JS, CSS, images) from /assets
-    app.mount("/assets", StaticFiles(directory=str(STATIC_DIR / "assets")), name="static-assets")
+    assets_dir = STATIC_DIR / "assets"
+    if assets_dir.exists():
+        app.mount("/assets", StaticFiles(directory=str(assets_dir)), name="static-assets")
 
-    # Catch-all: serve index.html for any non-API route (SPA client-side routing)
+    # Serve root index.html
+    @app.get("/")
+    async def serve_root():
+        index_file = STATIC_DIR / "index.html"
+        if index_file.is_file():
+            return FileResponse(str(index_file))
+        return {"status": "online", "message": "SkillMatrix AI API running"}
+
+    # Catch-all: serve static files or index.html for client-side routing
     @app.get("/{full_path:path}")
     async def serve_spa(full_path: str):
-        # If a specific static file exists, serve it
         file_path = STATIC_DIR / full_path
         if file_path.is_file():
             return FileResponse(str(file_path))
-        # Otherwise serve index.html for client-side routing
-        return FileResponse(str(STATIC_DIR / "index.html"))
+        index_file = STATIC_DIR / "index.html"
+        if index_file.is_file():
+            return FileResponse(str(index_file))
+        return {"status": "online"}
 
 if __name__ == "__main__":
     print("[Python Backend] Starting SkillMatrix AI FastAPI server on http://localhost:8000 ...")
