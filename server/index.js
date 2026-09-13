@@ -42,6 +42,17 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Serve frontend static bundle
+const distPath = path.join(__dirname, '../dist');
+const clientDistPath = path.join(__dirname, '../client/dist');
+const staticPath = require('fs').existsSync(distPath) ? distPath : clientDistPath;
+
+app.use(express.static(staticPath));
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) return next();
+  res.sendFile(path.join(staticPath, 'index.html'));
+});
+
 async function startServer() {
   try {
     console.log('[Server] Initializing database...');
