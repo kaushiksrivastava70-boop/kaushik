@@ -13,7 +13,9 @@ import {
   Sparkles, 
   ChevronRight, 
   Flame,
-  FileText
+  FileText,
+  MapPin,
+  Globe
 } from 'lucide-react';
 import { getTranslation } from '../utils/i18n';
 
@@ -69,7 +71,14 @@ export default function Dashboard({ currentUser, onNavigate, onOpenHistory, curr
           </p>
         </div>
 
-        <div className="responsive-hero-actions" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div className="responsive-hero-actions" style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+          <button
+            onClick={() => onNavigate('geo')}
+            className="btn-primary"
+            style={{ padding: '10px 20px', fontSize: 13.5, background: 'linear-gradient(135deg, #0d9488, #2563eb)', display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 0 16px rgba(13, 148, 136, 0.4)' }}
+          >
+            <MapPin size={16} /> 🇮🇳 {t.tabGeo || 'India Heat Map'}
+          </button>
           <button
             onClick={() => onNavigate('assessment')}
             className="btn-primary"
@@ -159,6 +168,66 @@ export default function Dashboard({ currentUser, onNavigate, onOpenHistory, curr
             +18% Competency Acceleration
           </div>
         </div>
+      </div>
+
+      {/* India Geographical Skill-Gap Heat Map Interactive Showcase Banner */}
+      <div 
+        className="card" 
+        style={{ 
+          padding: '24px 28px', 
+          background: 'radial-gradient(ellipse at 85% 50%, rgba(13, 148, 136, 0.22) 0%, rgba(15, 23, 42, 0.95) 70%)', 
+          border: '1px solid rgba(13, 148, 136, 0.4)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: '0 8px 30px rgba(13, 148, 136, 0.15)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 20
+        }}
+      >
+        <div style={{ maxWidth: 640 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+            <span className="badge badge-teal" style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+              <MapPin size={12} /> National Skill Intelligence
+            </span>
+            <span className="badge badge-blue">Live Telemetry</span>
+          </div>
+          <h2 style={{ fontSize: 20, fontWeight: 800, color: '#fff', margin: '4px 0 8px 0' }}>
+            🇮🇳 India Geographical Skill-Gap Heat Map
+          </h2>
+          <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            Real-time state telemetry mapping regional competency levels across 16 states. Identify high-priority intervention zones (UP, Bihar, Assam, Odisha) and benchmark centers (Karnataka, Kerala).
+          </p>
+          <div style={{ display: 'flex', gap: 14, marginTop: 10, flexWrap: 'wrap', fontSize: 12 }}>
+            <span style={{ color: '#34d399', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 5 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981' }}></span> Leaders: KA (78%), KL (76%), MH (74%)
+            </span>
+            <span style={{ color: '#f87171', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 5 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#ef4444' }}></span> High Need: BR (48%), AS (51%), UP (52%), OD (53%)
+            </span>
+          </div>
+        </div>
+
+        <button
+          onClick={() => onNavigate('geo')}
+          className="btn-primary"
+          style={{
+            padding: '12px 24px',
+            fontSize: 14,
+            fontWeight: 700,
+            background: 'linear-gradient(135deg, #0d9488, #2563eb)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            boxShadow: '0 4px 20px rgba(13, 148, 136, 0.35)',
+            cursor: 'pointer'
+          }}
+        >
+          <MapPin size={18} />
+          <span>Open India Heat Map</span>
+          <ArrowRight size={16} />
+        </button>
       </div>
 
       {/* Main Grid: Competency Digital Twin & AI Recommended Action */}

@@ -42,7 +42,7 @@ export default function Header({
     { id: 'rag', label: t.tabRag, icon: BookOpen, badge: 'AI' },
     { id: 'training', label: t.tabTraining, icon: Zap },
     { id: 'predictor', label: t.tabPredictor, icon: TrendingUp },
-    { id: 'geo', label: t.tabGeo, icon: MapPin },
+    { id: 'geo', label: t.tabGeo, icon: MapPin, badge: 'MAP' },
     { id: 'mentor', label: t.tabMentor, icon: MessageSquare },
   ];
 

@@ -8,10 +8,12 @@ import {
   Users, 
   Info,
   CheckCircle2,
-  PieChart
+  PieChart,
+  Globe,
+  ArrowLeft
 } from 'lucide-react';
 
-export default function GeoHeatMap() {
+export default function GeoHeatMap({ onNavigate }) {
   // Canonical SVG coordinates for state nodes
   const baseMapCoordinates = {
     'DL': { x: 230, y: 155, name: 'Delhi' },
@@ -144,7 +146,27 @@ export default function GeoHeatMap() {
         </div>
 
         {/* View Toggle */}
-        <div className="responsive-hero-actions" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div className="responsive-hero-actions" style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+          {onNavigate && (
+            <button
+              onClick={() => onNavigate('dashboard')}
+              style={{
+                padding: '8px 14px',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 12,
+                fontWeight: 600,
+                background: 'rgba(255, 255, 255, 0.08)',
+                color: '#fff',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6
+              }}
+            >
+              <ArrowLeft size={14} /> Back to Dashboard
+            </button>
+          )}
           <button
             onClick={() => setViewMode('map')}
             style={{

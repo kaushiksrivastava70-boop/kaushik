@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Eye, EyeOff, ShieldCheck, ArrowRight, CheckCircle2, User, Globe } from 'lucide-react';
+import { Sparkles, Eye, EyeOff, ShieldCheck, ArrowRight, CheckCircle2, User, Globe, MapPin } from 'lucide-react';
 import { SUPPORTED_LANGUAGES, getTranslation } from '../utils/i18n';
 
 export default function LoginPage({ onLoginSuccess, currentLang, onChangeLang }) {
@@ -292,6 +292,45 @@ export default function LoginPage({ onLoginSuccess, currentLang, onChangeLang })
             })}
           </div>
         </div>
+      </div>
+
+      {/* Direct Quick-Access to India Heat Map */}
+      <div style={{ width: '100%', maxWidth: 460, zIndex: 10, marginTop: 14 }}>
+        <button
+          type="button"
+          onClick={() => {
+            const guestUser = {
+              id: 'user-ananya',
+              name: 'Ananya Sharma',
+              email: 'ananya.sharma@gov.in',
+              role: 'learner',
+              designation: 'Junior Data Analyst',
+              department: 'Data Analytics Division',
+              region: 'Delhi'
+            };
+            onLoginSuccess(guestUser, 'geo');
+          }}
+          style={{
+            width: '100%',
+            padding: '14px 20px',
+            borderRadius: 16,
+            background: 'linear-gradient(135deg, rgba(13, 148, 136, 0.28), rgba(37, 99, 235, 0.28))',
+            border: '1px solid rgba(13, 148, 136, 0.55)',
+            color: '#2dd4bf',
+            fontSize: 13.5,
+            fontWeight: 700,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 10,
+            boxShadow: '0 8px 24px rgba(13, 148, 136, 0.2)',
+            cursor: 'pointer'
+          }}
+        >
+          <MapPin size={18} color="#2dd4bf" />
+          <span>🇮🇳 View Indian Skill-Gap Heat Map (Direct Access)</span>
+          <ArrowRight size={16} />
+        </button>
       </div>
 
       {/* Google-Style Footer with Language Selector */}

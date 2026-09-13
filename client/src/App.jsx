@@ -14,14 +14,80 @@ import AiMentor from './components/AiMentor';
 import AdminCenter from './components/AdminCenter';
 import LoginPage from './components/LoginPage';
 
+const VALID_TABS = ['dashboard', 'competency', 'assessment', 'pdfquiz', 'rag', 'training', 'predictor', 'geo', 'mentor', 'admin'];
+
 export default function App() {
+  const getInitialTab = () => {
+    if (typeof window === 'undefined') return 'dashboard';
+    const hash = window.location.hash.replace('#', '').toLowerCase();
+    if (VALID_TABS.includes(hash)) return hash;
+    if (hash === 'india' || hash === 'heatmap' || hash === 'map') return 'geo';
+    return 'dashboard';
+  };
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [currentTab, setCurrentTab] = useState('dashboard');
+  const [currentTab, setCurrentTab] = useState(getInitialTab);
   const [currentUser, setCurrentUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [currentLang, setCurrentLang] = useState('en');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+
+  const switchTab = (tab) => {
+    const target = VALID_TABS.includes(tab) ? tab : 'dashboard';
+    setCurrentTab(target);
+    if (window.location.hash.replace('#', '') !== target) {
+      window.location.hash = target;
+    }
+  };
+
+  // Restore session from localStorage if saved
+  useEffect(() => {
+    const saved = localStorage.getItem('skillmatrix_user');
+    if (saved) {
+      try {
+        const u = JSON.parse(saved);
+        if (u && u.id) {
+          setCurrentUser(u);
+          setIsAuthenticated(true);
+        }
+      } catch (e) {
+        console.error('Session restore failed:', e);
+      }
+    }
+  }, []);
+
+  // Hash change synchronization & public auto-unlock for #geo
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      if (hash === 'geo' || hash === 'heatmap' || hash === 'india' || hash === 'map') {
+        setCurrentTab('geo');
+        if (!isAuthenticated) {
+          const guestUser = {
+            id: 'user-ananya',
+            name: 'Ananya Sharma (Public View)',
+            email: 'ananya.sharma@gov.in',
+            role: 'learner',
+            designation: 'Junior Data Analyst',
+            department: 'Data Analytics Division',
+            region: 'Delhi'
+          };
+          setCurrentUser(guestUser);
+          setIsAuthenticated(true);
+          try {
+            localStorage.setItem('skillmatrix_user', JSON.stringify(guestUser));
+          } catch (e) {}
+        }
+      } else if (VALID_TABS.includes(hash)) {
+        setCurrentTab(hash);
+      }
+    };
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, [isAuthenticated]);
 
   // Initialize and load users
   useEffect(() => {
@@ -38,14 +104,22 @@ export default function App() {
       .catch(err => console.error('Failed to load users:', err));
   }, []);
 
-  const handleLoginSuccess = (user) => {
+  const handleLoginSuccess = (user, targetTab) => {
     setCurrentUser(user);
     setIsAuthenticated(true);
-    setCurrentTab('dashboard');
+    try {
+      localStorage.setItem('skillmatrix_user', JSON.stringify(user));
+    } catch (e) {}
+    const hash = window.location.hash.replace('#', '').toLowerCase();
+    const dest = targetTab || (VALID_TABS.includes(hash) ? hash : 'dashboard');
+    switchTab(dest);
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+    try {
+      localStorage.removeItem('skillmatrix_user');
+    } catch (e) {}
   };
 
   const handleSwitchUser = (userId) => {
@@ -57,8 +131,11 @@ export default function App() {
       .then(r => r.json())
       .then(user => {
         setCurrentUser(user);
+        try {
+          localStorage.setItem('skillmatrix_user', JSON.stringify(user));
+        } catch (e) {}
         if (user.role === 'admin' && currentTab === 'assessment') {
-          setCurrentTab('admin');
+          switchTab('admin');
         }
       })
       .catch(err => console.error('Switch user error:', err));
@@ -80,7 +157,7 @@ export default function App() {
       {/* Top Header */}
       <Header
         currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
+        setCurrentTab={switchTab}
         currentUser={currentUser}
         users={users}
         onSwitchUser={handleSwitchUser}
@@ -95,7 +172,7 @@ export default function App() {
         {currentTab === 'dashboard' && (
           <Dashboard
             currentUser={currentUser}
-            onNavigate={setCurrentTab}
+            onNavigate={switchTab}
             onOpenHistory={() => setIsHistoryOpen(true)}
             currentLang={currentLang}
           />
@@ -103,19 +180,19 @@ export default function App() {
         {currentTab === 'competency' && (
           <CompetencyTwin
             currentUser={currentUser}
-            onNavigate={setCurrentTab}
+            onNavigate={switchTab}
           />
         )}
         {currentTab === 'assessment' && (
           <AdaptiveAssessment
             currentUser={currentUser}
-            onNavigate={setCurrentTab}
+            onNavigate={switchTab}
           />
         )}
         {currentTab === 'pdfquiz' && (
           <PdfQuizGenerator
             currentUser={currentUser}
-            onNavigate={setCurrentTab}
+            onNavigate={switchTab}
             currentLang={currentLang}
           />
         )}
@@ -127,22 +204,22 @@ export default function App() {
         {currentTab === 'training' && (
           <TrainingMode
             currentUser={currentUser}
-            onNavigate={setCurrentTab}
+            onNavigate={switchTab}
           />
         )}
         {currentTab === 'predictor' && (
           <CareerPredictor
             currentUser={currentUser}
-            onNavigate={setCurrentTab}
+            onNavigate={switchTab}
           />
         )}
         {currentTab === 'geo' && (
-          <GeoHeatMap />
+          <GeoHeatMap onNavigate={switchTab} />
         )}
         {currentTab === 'mentor' && (
           <AiMentor
             currentUser={currentUser}
-            onNavigate={setCurrentTab}
+            onNavigate={switchTab}
           />
         )}
         {currentTab === 'admin' && (
@@ -156,7 +233,7 @@ export default function App() {
       <ThreeDotMenu
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
-        setCurrentTab={setCurrentTab}
+        setCurrentTab={switchTab}
         onOpenHistory={() => setIsHistoryOpen(true)}
         currentUser={currentUser}
       />
