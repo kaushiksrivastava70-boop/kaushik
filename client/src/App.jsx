@@ -25,9 +25,19 @@ export default function App() {
     return 'dashboard';
   };
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const defaultGuestUser = {
+    id: 'user-ananya',
+    name: 'Ananya Sharma',
+    email: 'ananya.sharma@gov.in',
+    role: 'learner',
+    designation: 'Junior Data Analyst',
+    department: 'Data Analytics Division',
+    region: 'Delhi'
+  };
+
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [currentTab, setCurrentTab] = useState(getInitialTab);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(defaultGuestUser);
   const [users, setUsers] = useState([]);
   const [currentLang, setCurrentLang] = useState('en');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
