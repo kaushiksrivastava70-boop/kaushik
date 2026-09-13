@@ -35,7 +35,7 @@ export default function App() {
     region: 'Delhi'
   };
 
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentTab, setCurrentTab] = useState(getInitialTab);
   const [currentUser, setCurrentUser] = useState(defaultGuestUser);
   const [users, setUsers] = useState([]);
@@ -51,7 +51,7 @@ export default function App() {
     }
   };
 
-  // Restore session from localStorage if saved
+  // Keep saved user preference if available
   useEffect(() => {
     const saved = localStorage.getItem('skillmatrix_user');
     if (saved) {
@@ -59,45 +59,28 @@ export default function App() {
         const u = JSON.parse(saved);
         if (u && u.id) {
           setCurrentUser(u);
-          setIsAuthenticated(true);
         }
       } catch (e) {
-        console.error('Session restore failed:', e);
+        console.error('Session load error:', e);
       }
     }
   }, []);
 
-  // Hash change synchronization & public auto-unlock for #geo
+  // Hash change synchronization
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (hash === 'geo' || hash === 'heatmap' || hash === 'india' || hash === 'map') {
-        setCurrentTab('geo');
-        if (!isAuthenticated) {
-          const guestUser = {
-            id: 'user-ananya',
-            name: 'Ananya Sharma (Public View)',
-            email: 'ananya.sharma@gov.in',
-            role: 'learner',
-            designation: 'Junior Data Analyst',
-            department: 'Data Analytics Division',
-            region: 'Delhi'
-          };
-          setCurrentUser(guestUser);
-          setIsAuthenticated(true);
-          try {
-            localStorage.setItem('skillmatrix_user', JSON.stringify(guestUser));
-          } catch (e) {}
-        }
-      } else if (VALID_TABS.includes(hash)) {
+      if (VALID_TABS.includes(hash)) {
         setCurrentTab(hash);
+      } else if (hash === 'india' || hash === 'heatmap' || hash === 'map') {
+        setCurrentTab('geo');
       }
     };
 
     handleHash();
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);
-  }, [isAuthenticated]);
+  }, []);
 
   // Initialize and load users
   useEffect(() => {
